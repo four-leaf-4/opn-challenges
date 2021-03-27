@@ -1,14 +1,11 @@
 import React, { useContext } from 'react';
 import fetch from 'isomorphic-fetch';
 import styled from 'styled-components';
-
-import {
-  StoreContext,
-  AmountContext,
-  CharitiesContext,
-  CurrencyContext,
-  CharitiesIdContext,
-} from './index';
+import { StoreContext } from './context/store';
+import { AmountContext } from './context/amount';
+import { CharitiesIdContext } from './context/charitiesid';
+import { CurrencyContext } from './context/currency';
+import { CharitiesContext } from './context/charities';
 
 const Card = styled.div`
   margin: 10px;
