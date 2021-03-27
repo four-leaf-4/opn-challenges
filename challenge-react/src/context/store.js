@@ -1,5 +1,5 @@
 import React, { useReducer, useEffect } from 'react';
-import { summaryDonations } from '../helpers';
+import { getpayments } from '../apis/';
 
 export const StoreContext = React.createContext();
 
@@ -26,17 +26,7 @@ const reducer = (_state, action) => {
 export const StoreContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   useEffect(() => {
-    fetch('http://localhost:3001/payments')
-      .then(function (resp) {
-        return resp.json();
-      })
-      .then(function (data) {
-        console.log(data);
-        dispatch({
-          type: 'UPDATE_TOTAL_DONATE',
-          amount: summaryDonations(data.map((item) => item.amount)),
-        });
-      });
+    getpayments(dispatch);
   }, []);
 
   return (

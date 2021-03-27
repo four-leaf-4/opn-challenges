@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import fetch from 'isomorphic-fetch';
 import styled from 'styled-components';
 import { CharitiesContext } from '../context/';
 import OneOfCard from './oneofcard';
