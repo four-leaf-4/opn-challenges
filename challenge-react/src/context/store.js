@@ -9,10 +9,11 @@ const initialState = {
 };
 
 const reducer = (_state, action) => {
+  console.log(action);
   switch (action.type) {
     case 'UPDATE_TOTAL_DONATE':
       return Object.assign({}, _state, {
-        donate: _state.donate + action.amount,
+        donate: action.amount,
       });
     case 'UPDATE_MESSAGE':
       return Object.assign({}, _state, {

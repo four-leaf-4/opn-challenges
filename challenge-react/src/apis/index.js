@@ -4,12 +4,16 @@ import { summaryDonations } from '../helpers';
 export const posthandlePay = (
   selectedAmount,
   selectedCurrency,
-  selectedCharitiesId
+  selectedCharitiesId,
+  getpayments,
+  dispacth
 ) => {
   fetch('http://localhost:3001/payments', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: `{ "charitiesId": ${selectedCharitiesId}, "amount": ${selectedAmount}, "currency": "${selectedCurrency}" }`,
+  }).then(() => {
+    getpayments(dispacth);
   });
 };
 
