@@ -1,8 +1,14 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import fetch from 'isomorphic-fetch';
 import styled from 'styled-components';
 
-import { StoreContext, AmountContext, CharitiesContext } from './index';
+import {
+  StoreContext,
+  AmountContext,
+  CharitiesContext,
+  CurrencyContext,
+  CharitiesIdContext,
+} from './index';
 
 const Card = styled.div`
   margin: 10px;
@@ -35,13 +41,15 @@ const App = () => {
   );
 };
 
-const Payments = () => {
-  const { selectedAmount, setSelectedAmount } = useContext(AmountContext);
-  console.log(selectedAmount);
+const Payments = ({ id, currency }) => {
+  const { setSelectedAmount } = useContext(AmountContext);
+  const { setSelectedCurrency } = useContext(CurrencyContext);
+  const { setSelectedCharitiesId } = useContext(CharitiesIdContext);
   const clickPayment = (e) => {
     const { value } = e.target;
-    console.log(e.target.value);
-    setSelectedAmount({ selectedAmount: value });
+    setSelectedAmount(parseInt(value));
+    setSelectedCurrency(currency);
+    setSelectedCharitiesId(parseInt(id));
   };
 
   return [10, 20, 50, 100, 500].map((amount, j) => (
@@ -49,7 +57,7 @@ const Payments = () => {
       <input
         type="radio"
         name="payment"
-        value={selectedAmount}
+        value={amount}
         onClick={clickPayment}
       />
       {amount}
@@ -58,12 +66,24 @@ const Payments = () => {
 };
 
 const OneOfCard = ({ item }) => {
-  const { name } = item;
+  const { id, name, currency } = item;
+
+  const { selectedAmount } = useContext(AmountContext);
+  const { selectedCurrency } = useContext(CurrencyContext);
+  const { selectedCharitiesId } = useContext(CharitiesIdContext);
+
+  const handlePay = () => {
+    fetch('http://localhost:3001/payments', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: `{ "charitiesId": ${selectedCharitiesId}, "amount": ${selectedAmount}, "currency": "${selectedCurrency}" }`,
+    });
+  };
 
   return (
     <Card>
       <p>{name}</p>
-      <Payments />
+      <Payments id={id} currency={currency} />
       <button onClick={handlePay}>Pay</button>
     </Card>
   );
@@ -91,7 +111,3 @@ export default App;
       body: `{ "charitiesId": ${id}, "amount": ${amount}, "currency": "${currency}" }`,
     })
  */
-
-const handlePay = (id, amount, currency) => {
-  console.log(id);
-};

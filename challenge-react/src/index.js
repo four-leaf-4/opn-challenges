@@ -1,9 +1,7 @@
-import React, { useReducer, useState, useEffect, useContext } from 'react';
+import React, { useReducer, useState, useEffect } from 'react';
 import { render } from 'react-dom';
-import { createStore } from 'redux';
-import { Provider } from 'react-redux';
-import App from './App';
 import { summaryDonations } from './helpers';
+import App from './App';
 
 export const StoreContext = React.createContext();
 
@@ -62,6 +60,32 @@ export const AmountContextProvider = ({ children }) => {
   );
 };
 
+export const CharitiesIdContext = React.createContext();
+
+export const CharitiesIdContextProvider = ({ children }) => {
+  const [selectedCharitiesId, setSelectedCharitiesId] = useState(10);
+
+  return (
+    <CharitiesIdContext.Provider
+      value={{ selectedCharitiesId, setSelectedCharitiesId }}
+    >
+      {children}
+    </CharitiesIdContext.Provider>
+  );
+};
+
+export const CurrencyContext = React.createContext();
+
+export const CurrencyContextProvider = ({ children }) => {
+  const [selectedCurrency, setSelectedCurrency] = useState(10);
+
+  return (
+    <CurrencyContext.Provider value={{ selectedCurrency, setSelectedCurrency }}>
+      {children}
+    </CurrencyContext.Provider>
+  );
+};
+
 export const CharitiesContext = React.createContext();
 
 export const CharitiesContextProvider = ({ children }) => {
@@ -87,9 +111,13 @@ export const CharitiesContextProvider = ({ children }) => {
 render(
   <StoreContextProvider>
     <AmountContextProvider>
-      <CharitiesContextProvider>
-        <App />
-      </CharitiesContextProvider>
+      <CharitiesIdContextProvider>
+        <CurrencyContextProvider>
+          <CharitiesContextProvider>
+            <App />
+          </CharitiesContextProvider>
+        </CurrencyContextProvider>
+      </CharitiesIdContextProvider>
     </AmountContextProvider>
   </StoreContextProvider>,
   document.getElementById('root')
