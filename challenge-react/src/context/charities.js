@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getcharities } from '../apis/';
+import { getCharities } from '../apis/';
 
 export const CharitiesContext = React.createContext();
 
@@ -7,7 +7,13 @@ export const CharitiesContextProvider = ({ children }) => {
   const [charities, setCharities] = useState([]);
 
   useEffect(() => {
-    getcharities(setCharities);
+    getCharities()
+      .then((resp) => {
+        setCharities(resp);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }, []);
 
   return (

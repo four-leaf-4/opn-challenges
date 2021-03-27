@@ -4,7 +4,7 @@ import {
   CharitiesIdContext,
   CurrencyContext,
 } from '../context/';
-import { posthandlePay, getpayments } from '../apis/index';
+import { postPayments, getTotalDonate } from '../apis/index';
 import { StoreContext } from '../context/';
 
 const PaymentButton = () => {
@@ -14,13 +14,13 @@ const PaymentButton = () => {
   const { selectedCharitiesId } = useContext(CharitiesIdContext);
 
   const handlePay = () => {
-    posthandlePay(
-      selectedAmount,
-      selectedCurrency,
-      selectedCharitiesId,
-      getpayments,
-      dispatch
-    );
+    postPayments(selectedAmount, selectedCurrency, selectedCharitiesId)
+      .then(() => {
+        getTotalDonate(dispatch);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   return (

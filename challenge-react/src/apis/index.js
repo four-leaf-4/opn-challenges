@@ -1,39 +1,53 @@
 import fetch from 'isomorphic-fetch';
 import { summaryDonations } from '../helpers';
 
-export const posthandlePay = (
+export const postPayments = (
   selectedAmount,
   selectedCurrency,
-  selectedCharitiesId,
-  getpayments,
-  dispacth
+  selectedCharitiesId
 ) => {
-  fetch('http://localhost:3001/payments', {
+  return fetch('http://localhost:3001/payments', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: `{ "charitiesId": ${selectedCharitiesId}, "amount": ${selectedAmount}, "currency": "${selectedCurrency}" }`,
-  }).then(() => {
-    getpayments(dispacth);
+  }).then((resp) => {
+    if (resp.status >= 400) {
+      console.error(resp);
+      throw new Error('Bad response from server');
+    }
   });
 };
 
-export const getcharities = (setCharities) => {
-  fetch('http://localhost:3001/charities')
-    .then(function (resp) {
-      return resp.json();
-    })
-    .then(function (data) {
-      setCharities(data);
-    });
+export const getCharities = () => {
+  return fetch('http://localhost:3001/charities').then((resp) => {
+    if (resp.status >= 400) {
+      console.error(resp);
+      throw new Error('Bad response from server');
+    }
+    return resp.json();
+  });
 };
 
-export const getpayments = (dispatch) => {
-  fetch('http://localhost:3001/payments')
-    .then(function (resp) {
+export const getPayments = () => {
+  return fetch('http://localhost:3001/payments').then((resp) => {
+    if (resp.status >= 400) {
+      console.error(resp);
+      throw new Error('Bad response from server');
+    }
+    return resp.json();
+  });
+};
+
+export const getTotalDonate = (dispatch) => {
+  return fetch('http://localhost:3001/payments')
+    .then((resp) => {
+      if (resp.status >= 400) {
+        console.error(resp);
+        throw new Error('Bad response from server');
+      }
       return resp.json();
     })
-    .then(function (data) {
-      console.log(data);
+    .then((data) => {
       dispatch({
         type: 'UPDATE_TOTAL_DONATE',
         amount: summaryDonations(data.map((item) => item.amount)),

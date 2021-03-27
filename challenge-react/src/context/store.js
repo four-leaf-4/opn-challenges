@@ -1,5 +1,5 @@
 import React, { useReducer, useEffect } from 'react';
-import { getpayments } from '../apis/';
+import { getTotalDonate } from '../apis/';
 
 export const StoreContext = React.createContext();
 
@@ -9,7 +9,6 @@ const initialState = {
 };
 
 const reducer = (_state, action) => {
-  console.log(action);
   switch (action.type) {
     case 'UPDATE_TOTAL_DONATE':
       return Object.assign({}, _state, {
@@ -27,7 +26,9 @@ const reducer = (_state, action) => {
 export const StoreContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   useEffect(() => {
-    getpayments(dispatch);
+    getTotalDonate(dispatch).catch((error) => {
+      console.error(error);
+    });
   }, []);
 
   return (
