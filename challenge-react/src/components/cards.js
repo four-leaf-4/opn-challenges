@@ -3,8 +3,14 @@ import styled from 'styled-components';
 import { CharitiesContext } from '../context/';
 import OneOfCard from './oneofcard';
 
-const SectionCard = styled.div`
+const SectionCard = styled.section`
   display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  max-width: 960px;
+  width: 100%;
+  margin: auto;
 `;
 
 const Cards = () => {
