@@ -2,26 +2,26 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { StoreContext } from './context/';
 import Cards from './components/cards';
+import ThanksMessage from './components/thanksmessage';
+import { ThanksMessageProvider } from './context/';
 
-const Message = styled.p`
-color: 'red',
-margin: '1em 0',
-fontWeight: 'bold',
-fontSize: '16px',
-textAlign: 'center',
+const Main = styled.section`
+  position: relative;
 `;
 
 const App = () => {
   const { state } = useContext(StoreContext);
-  const { donate, message } = state;
+  const { donate } = state;
 
   return (
-    <div>
-      <h1>Tamboon React</h1>
-      <p>All donations: {donate}</p>
-      <Message>{message}</Message>
-      <Cards />
-    </div>
+    <ThanksMessageProvider>
+      <Main>
+        <h1>Tamboon React</h1>
+        <p>All donations: {donate}</p>
+        <ThanksMessage />
+        <Cards />
+      </Main>
+    </ThanksMessageProvider>
   );
 };
 

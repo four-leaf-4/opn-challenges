@@ -1,9 +1,4 @@
-import React, { useContext } from 'react';
-import {
-  AmountContext,
-  CharitiesIdContext,
-  CurrencyContext,
-} from '../context/';
+import React from 'react';
 import PaymentInput from './paymentinput';
 
 export const PaymentInputs = ({ id, currency }) => {
