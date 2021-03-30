@@ -1,13 +1,9 @@
 import React, { useContext } from 'react';
-import styled from 'styled-components';
+import { Main } from './styled/';
 import { StoreContext } from './context/';
 import Cards from './components/cards';
 import ThanksMessage from './components/thanksmessage';
 import { ThanksMessageProvider } from './context/';
-
-const Main = styled.section`
-  position: relative;
-`;
 
 const App = () => {
   const { state } = useContext(StoreContext);

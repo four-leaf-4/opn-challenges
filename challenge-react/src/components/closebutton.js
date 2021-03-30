@@ -1,21 +1,17 @@
 import React, { useContext } from 'react';
-import styled from 'styled-components';
+import { CloseButtonStyled } from '../styled/';
 import { PaymentsContext } from '../context/';
-
-const Button = styled.section`
-  cursor: pointer;
-`;
 
 const CloseButton = () => {
   const { setIsOpen } = useContext(PaymentsContext);
   return (
-    <Button
+    <CloseButtonStyled
       onClick={() => {
         setIsOpen(false);
       }}
     >
       ✖
-    </Button>
+    </CloseButtonStyled>
   );
 };
 

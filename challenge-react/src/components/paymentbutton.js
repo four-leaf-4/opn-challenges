@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { PaymentButtonStyled } from '../styled/';
 import {
   AmountContext,
   CharitiesIdContext,
@@ -39,11 +40,11 @@ const PaymentButton = () => {
         console.error(error);
       });
   };
-
+  const isDisabled = !(selectedAmount > 0 && selectedCharitiesId > 0);
   return (
-    <>
-      <button onClick={handlePay}>Pay</button>
-    </>
+    <PaymentButtonStyled onClick={handlePay} disabled={isDisabled}>
+      Pay
+    </PaymentButtonStyled>
   );
 };
 

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 export const CharitiesIdContext = React.createContext();
 
 export const CharitiesIdContextProvider = ({ children }) => {
-  const [selectedCharitiesId, setSelectedCharitiesId] = useState(10);
+  const [selectedCharitiesId, setSelectedCharitiesId] = useState(0);
 
   return (
     <CharitiesIdContext.Provider

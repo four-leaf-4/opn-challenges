@@ -1,16 +1,17 @@
 import React, { useContext } from 'react';
+import { DonateButtonStyled } from '../styled/';
 import { PaymentsContext } from '../context/';
 
 const DonateButton = () => {
   const { setIsOpen } = useContext(PaymentsContext);
   return (
-    <button
+    <DonateButtonStyled
       onClick={() => {
         setIsOpen(true);
       }}
     >
       Donate
-    </button>
+    </DonateButtonStyled>
   );
 };
 

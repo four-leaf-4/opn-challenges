@@ -4,29 +4,33 @@ import {
   CharitiesIdContext,
   CurrencyContext,
 } from '../context/';
+import { PaymentLabelStyled, PaymentInputStyled } from '../styled/';
 
 export const PaymentInput = ({ id, currency, amount }) => {
-  const { setSelectedAmount } = useContext(AmountContext);
+  const { selectedAmount, setSelectedAmount } = useContext(AmountContext);
   const { setSelectedCurrency } = useContext(CurrencyContext);
-  const { setSelectedCharitiesId } = useContext(CharitiesIdContext);
+  const { selectedCharitiesId, setSelectedCharitiesId } = useContext(
+    CharitiesIdContext
+  );
   const clickPayment = (e) => {
     const { value } = e.target;
     setSelectedAmount(parseInt(value));
     setSelectedCurrency(currency);
     setSelectedCharitiesId(parseInt(id));
   };
+  const isChecked = selectedAmount === amount && id === selectedCharitiesId;
   return (
-    <>
-      <label>
-        <input
-          type="radio"
-          name="payment"
-          value={amount}
-          onClick={clickPayment}
-        />
-        {amount}
-      </label>
-    </>
+    <PaymentLabelStyled checked={isChecked}>
+      <PaymentInputStyled
+        id={`id${id}payment${amount}`}
+        type="radio"
+        name={'payment'}
+        value={amount}
+        onChange={clickPayment}
+        checked={isChecked}
+      />
+      {amount}
+    </PaymentLabelStyled>
   );
 };
 
