@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { colors } from './colors';
 
 export const Message = styled.p`
   display: flex;
@@ -29,4 +30,10 @@ export const Message = styled.p`
       opacity: 0;
     }
   }
+`;
+
+export const DonatetionDisplay = styled.p`
+  color: ${colors.lightgrey};
+  font-size: 1.5rem;
+  text-align: center;
 `;
