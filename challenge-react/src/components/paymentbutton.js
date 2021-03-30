@@ -11,9 +11,11 @@ import { StoreContext, ThanksMessageContext } from '../context/';
 
 const PaymentButton = () => {
   const { dispatch } = useContext(StoreContext);
-  const { selectedAmount } = useContext(AmountContext);
-  const { selectedCurrency } = useContext(CurrencyContext);
-  const { selectedCharitiesId } = useContext(CharitiesIdContext);
+  const { selectedAmount, setSelectedAmount } = useContext(AmountContext);
+  const { selectedCurrency, setSelectedCurrency } = useContext(CurrencyContext);
+  const { selectedCharitiesId, setSelectedCharitiesId } = useContext(
+    CharitiesIdContext
+  );
 
   const { setIsDisplay } = useContext(ThanksMessageContext);
   const { setIsOpen } = useContext(PaymentsContext);
@@ -35,6 +37,11 @@ const PaymentButton = () => {
         setTimeout(() => {
           setIsDisplay(false);
         }, 3000);
+      })
+      .then(() => {
+        setSelectedAmount(0);
+        setSelectedCurrency('');
+        setSelectedCharitiesId(0);
       })
       .catch((error) => {
         console.error(error);
