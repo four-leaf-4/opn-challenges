@@ -27,7 +27,7 @@ export const WrapperPaymentInputs = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  height: 30%;
+  height: 50%;
 `;
 
 export const WrapperInsidePaymentInputs = styled.div`

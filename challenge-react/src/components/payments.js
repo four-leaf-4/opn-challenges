@@ -11,6 +11,7 @@ const Payments = ({ id, currency }) => {
     <SectionPayments>
       <CloseButton />
       <WrapperPaymentInputs>
+        <p>Select the amount to donate ({`${currency}`})</p>
         <PaymentInputs id={id} currency={currency} />
         <PaymentButton />
       </WrapperPaymentInputs>
